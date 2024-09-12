@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page with Background Music</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow: hidden;
+        }
+        .content-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            background-image: url('WhatsApp Image 2024-09-11 at 09.53.48_d4d4884e.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .content-wrapper::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            z-index: 1;
+        }
+        .content {
+            position: relative;
+            padding: 20px;
+            color: #333;
+            z-index: 2;
+        }
+        h4 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .line {
+            font-size: 16px;
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fade-in 2s forwards;
+        }
+        @keyframes fade-in {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .line b {
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+        #audioControl {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <audio id="backgroundAudio" loop>
+        <source src="audio.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <button id="audioControl">Pause Music</button>
+
+    <div class="content-wrapper">
+        <div class="content">
+            <h4>Dear Jiya</h4>
+            <div class="line">Tere Khushi k liye m BREAKUP k liye tyar hun</div>
+            <div class="line">pr tune apne mtlb k liye mujhe use kiya hai ye baat m kabhi ni bhulunga</div>
+            <div class="line">tune bhaut kuch new experience diya h mujhe like mera first hug first kiss first gf first guilt</div>
+            <div class="line">Guilt isliye jo tune kaha tha ki teri mumma ne tujhe kaha ki college pdne k liye jana h, dekh akele tu hi ni ladi h apne passion k liye sab krte h</div>
+            <div class="line">meri mummy ko jb mene btaya ki college life m girlfriend hona jarruri h to unhone kaha ki fir shadi bhi us se hi krni pdegi</div>
+            <div class="line"><b>MY FAMILY RAISE ME TO BE LOYAL</b></div>
+            <div class="line">m ye ni keh ra ki tu galat h but m agar yeh sab samne se kahunga na toh phir apne gusse ko kese control krna h</div>
+            <div class="line">mujhe ni ata isliye hi likh k dera hun tu achi h no doubt but mere liye ni reh payegi iska bura lg ra h</div>
+            <div class="line">pichle ek saal se m kisi aur ka wait krra tha but tune mujhe ehsas krya ki mujhe bhi koi psnd kr sakta h</div>
+            <div class="line">to mene bhi socha ki yr jab koi samne se itna kehra h toh uske liye itna toh kr hi sakta hun</div>
+            <div class="line">pr ab mujhe lgta h na m tere liye sahi tha or kisi or k liye tune itna pyara zeher diya h ki na m tujhe bhul paunga na kisi ko apni life m aane dunga</div>
+            <div class="line">bolne ko bhaut kuch h pr smajhdar k liye ishara kafi</div>
+            <div class="line">tere sath special feel hua tha mujhe or mujhe jhut bolne ki adat ni h pr kya h na tune mujhe meri nazron m girya h</div>
+            <div class="line">mujhse mere sapne chine h jo mene kabhi imagine kiye the apni gf k liye</div>
+            <div class="line">yr tere liye toh mene BTS ko bhi sunna pr jaan le <b>Genres</b> naam ki bhi cheez hoti h jo ki tere in GAYs m nhi h or hn last thing m cahta hun succeed kre apni life m</div>
+            <div class="line">or try krio ki mere baad kisi ka dil mt todhio kyuki meri bhen ne mujhe bade nazz se pala h or sabse Jayda dukhi bhi wo h ki usne tujhe psnd kiya mere liye</div>
+            <div class="line">is relation m sirf tu thi apni side se pr mere toh didi bhi thi unka trust bhi break kiya h tune</div>
+            <div class="line">SO AJ K BAAD ESA KISI K SATH MT KRIO</div>
+            <div class="line">EK SONG BHI DEDICATE KRNA CHATA HUN TUJHE <b>GUMAAN</b></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const lines = document.querySelectorAll('.line');
+            lines.forEach((line, index) => {
+                line.style.animationDelay = `${index * 4}s`;
+            });
+
+            const audio = document.getElementById('backgroundAudio');
+            const audioControl = document.getElementById('audioControl');
+
+            function playAudio() {
+                audio.play().then(() => {
+                    console.log("Audio started playing");
+                }).catch((error) => {
+                    console.log("Autoplay was prevented:", error);
+                    audioControl.textContent = 'Play Music';
+                });
+            }
+
+            // Try to play audio immediately
+            playAudio();
+
+            // Also try to play on window focus, in case it was blocked initially
+            window.addEventListener('focus', playAudio);
+
+            audioControl.addEventListener('click', function() {
+                if (audio.paused) {
+                    playAudio();
+                    audioControl.textContent = 'Pause Music';
+                } else {
+                    audio.pause();
+                    audioControl.textContent = 'Play Music';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
